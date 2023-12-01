@@ -1,7 +1,7 @@
 import regex as re
 
 with open("input", "r") as f:
-    input = f.read()
+    input = f.read().strip()
 
 def solve(digits):
     return sum(int(digits[candidates[0]] + digits[candidates[-1]]) for candidates in [re.findall(r"|".join(digits), l, overlapped=True) for l in input.splitlines()])
