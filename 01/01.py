@@ -1,6 +1,6 @@
 import regex as re
 
-with open("input", "r") as f:
+with open("01.in", "r") as f:
     input = f.read().strip()
 
 def solve(digits):
