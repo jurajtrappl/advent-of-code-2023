@@ -1,4 +1,3 @@
-from functools import reduce
 import regex as re
 
 with open("02.in", "r") as f:
@@ -11,7 +10,7 @@ with open("02.in", "r") as f:
     ]
 
 bag = {"red": 12, "green": 13, "blue": 14}
-possible_games_ids = set([id for id, _ in games])   # part 1
+possible_games_ids = set(id for id, _ in games)   # part 1
 power = 0                                           # part 2
 
 for id, record in games:
@@ -28,7 +27,7 @@ for id, record in games:
             color: max(fewest_cubes_bag[color], record_bag.get(color, 0)) for color in bag
         }
 
-    power += reduce(lambda x, y: x * y, fewest_cubes_bag.values())
+    power += fewest_cubes_bag["red"] * fewest_cubes_bag["green"] * fewest_cubes_bag["blue"]
 
 print(sum(possible_games_ids))
 print(power)
