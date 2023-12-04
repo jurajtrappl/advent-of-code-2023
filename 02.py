@@ -1,10 +1,8 @@
 import regex as re
 
-
 def parse_record(record):
     cubes = re.findall(r"(\d+)\s+(\w+)", record)
     return {color: int(count) for count, color in cubes}
-
 
 with open("02.in", "r") as f:
     games = [
