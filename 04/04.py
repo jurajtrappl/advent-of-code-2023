@@ -9,5 +9,5 @@ for card_number, (winning_numbers, scratch_numbers) in enumerate(scratch_cards, 
     for card_copy in range(card_number + 1, card_number + matching_numbers[card_number] + 1):
         copies[card_copy] += copies[card_number]
 
-print(sum(2 ** (x - 1) if x else 0 for x in matching_numbers.values()))
+print(sum(int(2 ** (x - 1)) for x in matching_numbers.values()))
 print(sum(copies.values()))
