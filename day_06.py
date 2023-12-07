@@ -1,3 +1,6 @@
+"""
+--- Day 6: Wait For It ---
+"""
 from functools import reduce
 
 with open("06.in", "r", encoding="utf-8") as f:
@@ -16,5 +19,4 @@ for time, distance in p1_competition_data + [p2_competition_data]:
     distances = [(time - i) * i for i in range(time)]
     records.append(sum(distance < d for d in distances))
 
-print(reduce(lambda x, y: x * y, records[:-1]))
-print(records[-1])
+print(reduce(lambda x, y: x * y, records[:-1]), records[-1])

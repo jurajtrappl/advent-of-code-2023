@@ -1,3 +1,6 @@
+"""
+--- Day 5: If You Give A Seed A Fertilizer ---
+"""
 import os
 from intervaltree import IntervalTree
 
@@ -59,5 +62,4 @@ for m in maps:
 
     p1_values, p2_values = p1_new_values, p2_new_values
 
-print(min(p1_values))
-print(min(x[0] for x in p2_values))
+print(min(p1_values), min(x[0] for x in p2_values))

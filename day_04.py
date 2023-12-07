@@ -1,3 +1,6 @@
+"""
+--- Day 4: Scratchcards ---
+"""
 with open("04.in", "r", encoding="utf-8") as f:
     scratch_cards = [
         (winning.split()[2:], scratched.split())
@@ -7,7 +10,8 @@ with open("04.in", "r", encoding="utf-8") as f:
     ]
 
 N = len(scratch_cards)
-matching_numbers, copies = {}, {card_number: 1 for card_number in range(1, N + 1)}
+matching_numbers = {}
+copies = {card_number: 1 for card_number in range(1, N + 1)}
 for card_number, (winning_numbers, scratch_numbers) in enumerate(
     scratch_cards, start=1
 ):
@@ -20,5 +24,4 @@ for card_number, (winning_numbers, scratch_numbers) in enumerate(
     ):
         copies[card_copy] += copies[card_number]
 
-print(sum(int(2 ** (x - 1)) for x in matching_numbers.values()))
-print(sum(copies.values()))
+print(sum(int(2 ** (x - 1)) for x in matching_numbers.values()), sum(copies.values()))
