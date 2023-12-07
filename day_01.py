@@ -25,5 +25,4 @@ def solve(digits):
     )
 
 
-print(solve(p1_digits))
-print(solve(p2_digits))
+print(solve(p1_digits), solve(p2_digits))

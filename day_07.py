@@ -16,8 +16,10 @@ type_frequencies = {
     "HIGH_CARD": (1, 1, 1, 1, 1),
 }
 
+
 def cards_to_relative_strength(cards: List[str], hand: str) -> List[int]:
     return [cards.index(card_on_hand) for card_on_hand in hand]
+
 
 def total_winnings(types: Dict[Tuple[int, ...], List[int]]) -> int:
     hand_counter, total = 1, 0
@@ -28,6 +30,7 @@ def total_winnings(types: Dict[Tuple[int, ...], List[int]]) -> int:
             hand_counter += 1
 
     return total
+
 
 with open("07.in", "r", encoding="utf-8") as f:
     hands_with_bids = [line.split() for line in f.read().strip().splitlines()]
