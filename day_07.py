@@ -19,7 +19,7 @@ type_frequencies = {
 def cards_to_relative_strength(cards: List[str], hand: str) -> List[int]:
     return [cards.index(card_on_hand) for card_on_hand in hand]
 
-def count_score(types: Dict[Tuple[int, ...], List[int]]) -> int:
+def total_winnings(types: Dict[Tuple[int, ...], List[int]]) -> int:
     hand_counter, total = 1, 0
     for hands in reversed(types.values()):
         ranked_hands = sorted(hands, key=lambda x: x[0])
@@ -53,4 +53,4 @@ for hand, str_bid in hands_with_bids:
         (cards_to_relative_strength(p2_camel_cards, hand), int(str_bid))
     )
 
-print(count_score(p1), count_score(p2))
+print(total_winnings(p1), total_winnings(p2))
