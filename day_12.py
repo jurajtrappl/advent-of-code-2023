@@ -1,26 +1,35 @@
 """
 --- Day 12: Hot Springs ---
 """
-from itertools import product
 from typing import List
+
+from tqdm import tqdm
 
 OPERATIONAL = "."
 DAMAGED = "#"
 UNKNOWN = "?"
 
+memo = {}
 
-def generate_combinations(springs_to_repair: str) -> List[str]:
-    question_mark_count = springs_to_repair.count("?")
-    combinations = product(".#", repeat=question_mark_count)
 
-    result = []
-    for combo in combinations:
-        temp_springs = springs_to_repair
-        for char in combo:
-            temp_springs = temp_springs.replace("?", char, 1)
-        result.append(temp_springs)
+def count_arrangements(springs: str, sizes: List[int]) -> int:
+    sizes_hashable = ",".join(map(str, sizes))
+    if res := memo.get((springs, sizes_hashable), None):
+        return res
 
-    return result
+    if "?" not in springs:
+        memo[(springs, sizes_hashable)] = is_solution(springs, sizes)
+        return memo[(springs, sizes_hashable)]
+
+    question_i = springs.index("?")
+    arrangements_with_dot = count_arrangements(
+        springs[:question_i] + "." + springs[question_i + 1 :], sizes
+    )
+    arrangements_with_hashtag = count_arrangements(
+        springs[:question_i] + "#" + springs[question_i + 1 :], sizes
+    )
+    memo[(springs, sizes_hashable)] = arrangements_with_dot + arrangements_with_hashtag
+    return arrangements_with_dot + arrangements_with_hashtag
 
 
 def is_solution(repaired_springs: str, sizes: List[int]) -> bool:
@@ -43,17 +52,12 @@ with open("12.in", "r", encoding="utf-8") as f:
     condition_records = [line.split() for line in f.read().splitlines()]
 
 p1_total_arrangements, p2_total_arrangements = 0, 0
-for springs, contiguous_sizes in condition_records:
+for springs, contiguous_sizes in tqdm(condition_records):
     p1_contiguous_sizes = list(map(int, contiguous_sizes.split(",")))
-    p1_total_arrangements += sum(
-        is_solution(s, p1_contiguous_sizes) for s in generate_combinations(springs)
-    )
+    p1_total_arrangements += count_arrangements(springs, contiguous_sizes)
 
-    # p2_contiguous_sizes = list(map(int, (contiguous_sizes * 5).split(",")))
-    # p2_springs = "?".join(springs * 5)
-    # p2_total_arrangements += sum(
-    #     is_solution(s, p2_contiguous_sizes)
-    #     for s in generate_combinations(p2_springs, sum(p2_contiguous_sizes))
-    # )
+    p2_contiguous_sizes = list(map(int, (contiguous_sizes * 5).split(",")))
+    p2_springs = "?".join(springs * 5)
+    p2_total_arrangements += count_arrangements(p2_springs, p2_contiguous_sizes)
 
 print(p1_total_arrangements, p2_total_arrangements)
