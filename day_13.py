@@ -4,25 +4,11 @@
 import os
 from typing import List
 
-TEST = """
-#.##..##.
-..#.##.#.
-##......#
-##......#
-..#.##.#.
-..##..##.
-#.#.##.#.
-
-#...##..#
-#....#..#
-..##..###
-#####.##.
-#####.##.
-..##..###
-#....#..#
-"""
-
-test_patterns = [block.split() for block in TEST.split(f"{os.linesep}{os.linesep}")]
+with open("13-test.in", "r", encoding="utf-8") as f:
+    test_patterns = [
+        [list(line) for line in block.split(os.linesep)]
+        for block in f.read().strip().split(f"{os.linesep}{os.linesep}")
+    ]
 
 
 def find_equal(grid: List[List[str]]) -> List[int]:
